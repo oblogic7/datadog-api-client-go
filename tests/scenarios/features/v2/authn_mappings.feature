@@ -104,11 +104,17 @@ Feature: AuthN Mappings
     And request contains "authn_mapping_id" parameter from "authn_mapping.data.id"
     When the request is sent
     Then the response status is 200 OK
+    And the response "included" has length 1
 
   @team:DataDog/team-aaa
   Scenario: List all AuthN Mappings returns "OK" response
     Given there is a valid "role" in the system
     And there is a valid "authn_mapping" in the system
     And new "ListAuthNMappings" request
+    And request contains "include" parameter with value ["roles"]
+    And request contains "filter" parameter from "authn_mapping.data.attributes.attribute_key"
     When the request is sent
     Then the response status is 200 OK
+    And the response "included" has length 1
+    And the response "included[0].type" has the same value as "role.data.type"
+    And the response "included[0].id" has the same value as "role.data.id"
