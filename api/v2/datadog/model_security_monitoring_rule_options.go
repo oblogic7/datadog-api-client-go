@@ -18,7 +18,7 @@ type SecurityMonitoringRuleOptions struct {
 	// and evaluates in real time.
 	EvaluationWindow *SecurityMonitoringRuleEvaluationWindow `json:"evaluationWindow,omitempty"`
 	// Hardcoded evaluator type.
-	HardcodedEvaluatorType *string `json:"hardcodedEvaluatorType,omitempty"`
+	HardcodedEvaluatorType *SecurityMonitoringRuleHardcodedEvaluatorType `json:"hardcodedEvaluatorType,omitempty"`
 	// Options on impossible travel rules.
 	ImpossibleTravelOptions *SecurityMonitoringRuleImpossibleTravelOptions `json:"impossibleTravelOptions,omitempty"`
 	// Once a signal is generated, the signal will remain “open” if a case is matched at least once within
@@ -116,9 +116,9 @@ func (o *SecurityMonitoringRuleOptions) SetEvaluationWindow(v SecurityMonitoring
 }
 
 // GetHardcodedEvaluatorType returns the HardcodedEvaluatorType field value if set, zero value otherwise.
-func (o *SecurityMonitoringRuleOptions) GetHardcodedEvaluatorType() string {
+func (o *SecurityMonitoringRuleOptions) GetHardcodedEvaluatorType() SecurityMonitoringRuleHardcodedEvaluatorType {
 	if o == nil || o.HardcodedEvaluatorType == nil {
-		var ret string
+		var ret SecurityMonitoringRuleHardcodedEvaluatorType
 		return ret
 	}
 	return *o.HardcodedEvaluatorType
@@ -126,7 +126,7 @@ func (o *SecurityMonitoringRuleOptions) GetHardcodedEvaluatorType() string {
 
 // GetHardcodedEvaluatorTypeOk returns a tuple with the HardcodedEvaluatorType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecurityMonitoringRuleOptions) GetHardcodedEvaluatorTypeOk() (*string, bool) {
+func (o *SecurityMonitoringRuleOptions) GetHardcodedEvaluatorTypeOk() (*SecurityMonitoringRuleHardcodedEvaluatorType, bool) {
 	if o == nil || o.HardcodedEvaluatorType == nil {
 		return nil, false
 	}
@@ -142,8 +142,8 @@ func (o *SecurityMonitoringRuleOptions) HasHardcodedEvaluatorType() bool {
 	return false
 }
 
-// SetHardcodedEvaluatorType gets a reference to the given string and assigns it to the HardcodedEvaluatorType field.
-func (o *SecurityMonitoringRuleOptions) SetHardcodedEvaluatorType(v string) {
+// SetHardcodedEvaluatorType gets a reference to the given SecurityMonitoringRuleHardcodedEvaluatorType and assigns it to the HardcodedEvaluatorType field.
+func (o *SecurityMonitoringRuleOptions) SetHardcodedEvaluatorType(v SecurityMonitoringRuleHardcodedEvaluatorType) {
 	o.HardcodedEvaluatorType = &v
 }
 
@@ -313,7 +313,7 @@ func (o *SecurityMonitoringRuleOptions) UnmarshalJSON(bytes []byte) (err error) 
 	all := struct {
 		DetectionMethod         *SecurityMonitoringRuleDetectionMethod         `json:"detectionMethod,omitempty"`
 		EvaluationWindow        *SecurityMonitoringRuleEvaluationWindow        `json:"evaluationWindow,omitempty"`
-		HardcodedEvaluatorType  *string                                        `json:"hardcodedEvaluatorType,omitempty"`
+		HardcodedEvaluatorType  *SecurityMonitoringRuleHardcodedEvaluatorType  `json:"hardcodedEvaluatorType,omitempty"`
 		ImpossibleTravelOptions *SecurityMonitoringRuleImpossibleTravelOptions `json:"impossibleTravelOptions,omitempty"`
 		KeepAlive               *SecurityMonitoringRuleKeepAlive               `json:"keepAlive,omitempty"`
 		MaxSignalDuration       *SecurityMonitoringRuleMaxSignalDuration       `json:"maxSignalDuration,omitempty"`
@@ -337,6 +337,14 @@ func (o *SecurityMonitoringRuleOptions) UnmarshalJSON(bytes []byte) (err error) 
 		return nil
 	}
 	if v := all.EvaluationWindow; v != nil && !v.IsValid() {
+		err = json.Unmarshal(bytes, &raw)
+		if err != nil {
+			return err
+		}
+		o.UnparsedObject = raw
+		return nil
+	}
+	if v := all.HardcodedEvaluatorType; v != nil && !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
 			return err
