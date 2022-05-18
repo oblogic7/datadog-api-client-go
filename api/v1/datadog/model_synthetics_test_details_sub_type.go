@@ -12,7 +12,7 @@ import (
 )
 
 // SyntheticsTestDetailsSubType The subtype of the Synthetic API test, `http`, `ssl`, `tcp`,
-// `dns`, `icmp`, `udp`, `websocket` or `multi`.
+// `dns`, `icmp`, `udp`, `websocket`, `grpc` or `multi`.
 type SyntheticsTestDetailsSubType string
 
 // List of SyntheticsTestDetailsSubType
@@ -25,6 +25,7 @@ const (
 	SYNTHETICSTESTDETAILSSUBTYPE_ICMP      SyntheticsTestDetailsSubType = "icmp"
 	SYNTHETICSTESTDETAILSSUBTYPE_UDP       SyntheticsTestDetailsSubType = "udp"
 	SYNTHETICSTESTDETAILSSUBTYPE_WEBSOCKET SyntheticsTestDetailsSubType = "websocket"
+	SYNTHETICSTESTDETAILSSUBTYPE_GRPC      SyntheticsTestDetailsSubType = "grpc"
 )
 
 var allowedSyntheticsTestDetailsSubTypeEnumValues = []SyntheticsTestDetailsSubType{
@@ -36,6 +37,7 @@ var allowedSyntheticsTestDetailsSubTypeEnumValues = []SyntheticsTestDetailsSubTy
 	SYNTHETICSTESTDETAILSSUBTYPE_ICMP,
 	SYNTHETICSTESTDETAILSSUBTYPE_UDP,
 	SYNTHETICSTESTDETAILSSUBTYPE_WEBSOCKET,
+	SYNTHETICSTESTDETAILSSUBTYPE_GRPC,
 }
 
 func (w *SyntheticsTestDetailsSubType) GetAllowedValues() []SyntheticsTestDetailsSubType {
